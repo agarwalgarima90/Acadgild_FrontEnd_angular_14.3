@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="acadgild">
+	<head>
+		<title>Assignment 13.2</title>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.1/angular-route.min.js"></script>
+		<script>
+			var myapp = angular.module('acadgild', ['ngRoute']);
+
+			myapp.factory("details", function() {
+				
+				var mydata = [{name: "Garima", age: 26, empId: 5007403, salary: 25000},
+						{name: "Rishi", age: 30, empId: 10020, salary: 50000},
+						{name: "Razat", age: 20, empId: 3002010, salary: 80000}];
+				
+				return {
+					getData: function() {
+						return mydata;
+					}
+				}
+			});
+
+			myapp.controller('mycontroller1', function($scope, details) {
+				$scope.empData = [];
+
+				$scope.getEmpData = function() {
+					$scope.empData = details.getData();
+				}
+			});
+		</script>
+		<style>
+			td {
+				padding: 10px;
+			}
+		</style>
+	</head>
+	<body ng-controller="mycontroller1" ng-init="getEmpData()">
+		<table border="1">
+			<tr>
+				<th>Name</th>
+				<th>Age</th>
+				<th>Emp ID </th>
+				<th> Salary </th>
+			</tr>
+			<tr ng-repeat="item in empData">
+				<td>{{item.name}}</td>
+				<td>{{item.age}} Years</td>
+				<td>{{item.empId}}</td>
+				<td>{{item.salary | currency: "Rs."}}</td>
+			</tr>
+		</table>
+	</body>
+</html>
